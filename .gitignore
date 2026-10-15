@@ -1,0 +1,57 @@
+# Internal docs (lokal saja)
+AGENTS.md
+CHANGELOG.txt
+
+# App binaries / pulled APKs
+original/
+/Anime_Lovers_V3_*.apk
+work/AnimeLovers_*.apk
+work/AnimeLovers_*.idsig
+work/*.apk
+work/*.idsig
+work/libapp.so.orig
+work/libapp.so
+
+# Reverse-engineering artifacts
+work/blutter_out/
+work/decompile/
+work/staging/
+work/universal/
+work/libs/
+work/old125/
+work/strings_app.txt
+work/strings_old125.txt
+work/inspect.json
+work/inspect.err
+work/rea_inspect.json
+work/rea_inspect.err
+work/*.xml
+work/*.png
+work/patch_libapp.py
+work/notes/
+work/CHANGELOG.txt
+
+# Module build intermediates (only the final APK is published)
+work/lsposed-module/build/apk/
+work/lsposed-module/build/classes/
+work/lsposed-module/build/module_classes/
+work/lsposed-module/build/dex/
+work/lsposed-module/build/res.zip
+work/lsposed-module/build/resources.apk
+work/lsposed-module/build/*_unsigned.apk
+work/lsposed-module/build/*_aligned.apk
+work/lsposed-module/build/*.idsig
+
+# Scratch / local tooling
+.omo/
+.codegraph
+cookies.txt
+page.html
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Keep the final module APK
+!work/lsposed-module/build/NimeNoLimit.apk

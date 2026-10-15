@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ndeso17.nimesnolimit">
+
+    <queries>
+        <package android:name="com.aniverseid.animelovers" />
+    </queries>
+
+    <application
+        android:forceQueryable="true"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="NimeNoLimit"
+        android:hasCode="true">
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="NimeNoLimit">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data android:name="xposedmodule" android:value="true" />
+        <meta-data android:name="xposeddescription"
+            android:value="Unlocks premium features, removes ads, and disables in-app limits (keeps original signature so Google login works)." />
+        <meta-data android:name="xposedminversion" android:value="93" />
+        <meta-data android:name="xposedscope"
+            android:resource="@array/xposedscope" />
+    </application>
+</manifest>
