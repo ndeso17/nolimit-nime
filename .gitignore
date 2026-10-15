@@ -2,6 +2,12 @@
 AGENTS.md
 CHANGELOG.txt
 
+# Malware analysis & APK modded (lokal saja)
+mods/
+work/drama_apk/
+work/original_cert.der
+work/release-notes-v*.md
+
 # App binaries / pulled APKs
 original/
 /Anime_Lovers_V3_*.apk

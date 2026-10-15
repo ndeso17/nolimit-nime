@@ -10,7 +10,7 @@ import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 /**
- * NimeNoLimit — runtime patcher for the target app.
+ * NimeNoLimit — runtime patcher for the target app (and for its auth backend).
  *
  * The official APK is never modified, so its signature stays valid and any
  * sign-in that depends on it (e.g. Google Sign-In) keeps working. All changes
@@ -22,10 +22,19 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  *  2. Permissions - runtime permission requests are answered as DENIED and the
  *     result callback is invoked immediately, so no system dialog is shown.
  *  3. Notifications - every NotificationManager.notify call is dropped.
+ *
+ * When this module is paired with the modded APK (re-signed by the user), the
+ * signature no longer matches the OAuth client registered with Google, so
+ * Google Sign-In fails (DEVELOPER_ERROR, code 10). A second install path in
+ * the com.google.android.gms process (Google Play Services) restores the
+ * original signing certificate in the PackageInfo seen by Play Services, so
+ * sign-in works on the modded APK too. With the original APK installed, the
+ * spoof is a no-op (the returned cert is already the original).
  */
 public class MainHook implements IXposedHookLoadPackage {
 
     private static final String TARGET_PACKAGE = "com.aniverseid.animelovers";
+    private static final String GMS_PACKAGE = "com.google.android.gms";
     private static final String K_VIP_LEVEL = "flutter.vipLevel";
     private static final String K_VIP_EXP = "flutter.vipExp";
     private static final String K_TIKET = "flutter.tiket";
@@ -38,10 +47,16 @@ public class MainHook implements IXposedHookLoadPackage {
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) {
-        if (!TARGET_PACKAGE.equals(lpparam.packageName)) {
+        String pkg = lpparam.packageName;
+        if (GMS_PACKAGE.equals(pkg)) {
+            log("loading signature spoof into " + pkg);
+            new SignatureSpoof().install(lpparam.classLoader);
             return;
         }
-        log("loading for " + lpparam.packageName);
+        if (!TARGET_PACKAGE.equals(pkg)) {
+            return;
+        }
+        log("loading for " + pkg);
         ClassLoader cl = lpparam.classLoader;
         hookGetAll(cl);
         hookScalar(cl, "getLong", long.class);

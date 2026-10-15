@@ -20,4 +20,5 @@ public class XposedHelpers {
     public static XC_MethodHook.Unhook findAndHookMethod(String className, ClassLoader classLoader, String methodName, Object... parameterTypesAndCallback) { return null; }
     public static Set<XC_MethodHook.Unhook> findAndHookAllMethods(Class<?> clazz, String methodName, XC_MethodHook callback) { return null; }
     public static void findAndHookConstructor(Class<?> clazz, Object... parameterTypesAndCallback) {}
+    public static Object newInstance(Class<?> clazz, Object... args) { return null; }
 }
